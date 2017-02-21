@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cora 2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="jquery.tampon-calculator-modal.js"></script>
+    <script type="text/javascript">
+      var volume = 0;
+      var days = 0;
+      var counter = 0;
+      function set_volume(x) {
+        volume = x;
+      }
+      function set_days(y) {
+        days = y;
+      }
+      function calculate_flow() {
+        alert(days * volume);
+      }
+      function counter_up() {
+        counter += 1;
+      }
+      function alert_empty() {
+        if(days==0) {
+          alert("empty");
+        }
+      }
+
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style media="screen">
+      li {
+        list-style: none;
+        display: inline-block;
+      }
+    </style>
+    <script type="text/javascript">
+
+    </script>
+  </head>
+  <body>
+    <h3>Unsure how many you use?</h3>
+    <p>Use our </p><a href="#" class="flow-description">calculator</a><p> to find the right quantity for you.</p>
+
+
+
+    <script>
+      $(document).ready(function(){
+
+        $('.flow-description').calculator_modal_box({
+          title:"Cora Subscription Calculator",
+    			description: "How would you describe your flow?",
+          question1: 'How would you describe your flow?',
+          flow_choices: '<li><input type="button" onclick="set_volume(15);" value="Very Light"></li><li><input type="button" onclick="set_volume(22);" value="Light"></li><li><input type="button" onclick="set_volume(44);" value="Medium"></li><li><input type="button" onclick="set_volume(85);" value="Heavy"></li><li><input type="button" onclick="set_volume(110);" value="Extremely Heavy"></li><li><input type="button" onclick="set_volume(44); counter_up();" value="No Clue"></li>',
+          question2: 'How many days does your period usually last?',
+          day_choices: '<li><input type="button" onclick="set_days(10);" value="1"></li> <li><input type="button" onclick="set_days(20);" value="2"></li> <li><input type="button" onclick="set_days(35);" value="3"></li> <li><input type="button" onclick="set_days(60);" value="4"></li> <li><input type="button" onclick="set_days(80);" value="5"></li> <li><input type="button" onclick="set_days(130);" value="6"></li> <li><input type="button" onclick="set_days(210);" value="7"></li> <li><input type="button" onclick="set_days(45);" value="No Clue"></li>',
+        });
+      });
+    </script>
+  </body>
+</html>
