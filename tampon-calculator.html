@@ -6,6 +6,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="jquery.tampon-calculator-modal.js"></script>
     <script type="text/javascript">
+    function activate() {
+      alert("I'm here!");
+      $(this).css('background-color', 'orange');
+    };
+
       var volume = 0;
       var days = 0;
       var counter = 0;
@@ -16,7 +21,7 @@
         days = y;
       }
       function calculate_flow() {
-        alert(days * volume);
+        flow = days * volume;
       }
       function counter_up() {
         counter += 1;
@@ -26,35 +31,66 @@
           alert("empty");
         }
       }
+      function close_modal(){
+  	    $('#calculator_block_page').fadeOut().remove();
+  	  }
+      function next_question() {
+        $('#calculator_block_page').fadeOut().remove();
+        $('#day-description')[0].click();
+      }
+      function calculate_pads() {
+        calculate_flow();
+        if(counter == 2) {
+          var recommendation = "12"
+        } else if (flow < 875) {
+          var recommendation = "6"
+        } else if ((flow > 875) && (flow <1960)) {
+          var recommendation = "12"
+        } else if ((flow > 1970) && (flow < 3300)) {
+          var recommendation = "18"
+        } else if (flow > 3500) {
+          var recommendation = "24"
+        }
+        $('p#calculator-results').html("We recommend that you start off with " + recommendation + " pads. You can always adjust as needed down the line.");
+      };
 
     </script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style media="screen">
       li {
         list-style: none;
         display: inline-block;
       }
+      .active {
+        background-color: orange;
+        color: red;
+      }
     </style>
-    <script type="text/javascript">
 
-    </script>
   </head>
   <body>
     <h3>Unsure how many you use?</h3>
-    <p>Use our </p><a href="#" class="flow-description">calculator</a><p> to find the right quantity for you.</p>
-
-
-
+    <p>Use our calculator to find the right quantity for you.</p>
+    <a href="#" class="flow-description">Cora Calculator</a>
+    <a href="#" id="day-description"></a>
+    <p id="calculator-results"></p>
     <script>
       $(document).ready(function(){
 
+        $('#day-description').calculator_modal_box({
+          title:"Cora Subscription Calculator",
+          question: 'How many days does your period usually last?',
+          choices: '<li class="clickable"><input type="button" onclick="set_days(10); activate();" value="1"></li> <li class="clickable"><input type="button" onclick="set_days(20); activate();" value="2"></li> <li class="clickable"><input type="button" onclick="activate(); set_days(35);" value="3"></li> <li class="clickable"><input type="button" onclick="activate(); set_days(60);" value="4"></li> <li class="clickable"><input type="button" onclick="activate(); set_days(80);" value="5"></li> <li class="clickable"><input type="button" onclick="activate(); set_days(130);" value="6"></li> <li class="clickable"><input type="button" onclick="activate(); set_days(210);" value="7"></li> <li class="clickable"><input type="button" onclick="activate(); set_days(45);" value="No Clue"></li>',
+          submit: '<input type="button" onclick="calculate_pads(); close_modal();" value="submit">'
+        });
+
         $('.flow-description').calculator_modal_box({
           title:"Cora Subscription Calculator",
-    			description: "How would you describe your flow?",
-          question1: 'How would you describe your flow?',
-          flow_choices: '<li><input type="button" onclick="set_volume(15);" value="Very Light"></li><li><input type="button" onclick="set_volume(22);" value="Light"></li><li><input type="button" onclick="set_volume(44);" value="Medium"></li><li><input type="button" onclick="set_volume(85);" value="Heavy"></li><li><input type="button" onclick="set_volume(110);" value="Extremely Heavy"></li><li><input type="button" onclick="set_volume(44); counter_up();" value="No Clue"></li>',
-          question2: 'How many days does your period usually last?',
-          day_choices: '<li><input type="button" onclick="set_days(10);" value="1"></li> <li><input type="button" onclick="set_days(20);" value="2"></li> <li><input type="button" onclick="set_days(35);" value="3"></li> <li><input type="button" onclick="set_days(60);" value="4"></li> <li><input type="button" onclick="set_days(80);" value="5"></li> <li><input type="button" onclick="set_days(130);" value="6"></li> <li><input type="button" onclick="set_days(210);" value="7"></li> <li><input type="button" onclick="set_days(45);" value="No Clue"></li>',
+          question: 'How would you describe your flow?',
+          choices: '<li class="clickable"><input type="button" onclick="activate(); set_volume(15);" value="Very Light"></li><li class="clickable"><input type="button" onclick="activate(); set_volume(22);" value="Light"></li><li class="clickable"><input type="button" onclick="activate(); set_volume(44);" value="Medium"></li><li class="clickable"><input type="button" onclick="activate(); set_volume(85);" value="Heavy"></li><li class="clickable"><input type="button" onclick="activate(); set_volume(110);" value="Extremely Heavy"></li><li class="clickable"><input type="button" onclick="activate(); set_volume(44); counter_up();" value="No Clue"></li>',
+          submit: '<a href="#" onclick="close_modal(); next_question();" id="day-description">Next</a>'
         });
       });
     </script>
