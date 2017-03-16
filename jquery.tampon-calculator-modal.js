@@ -10,18 +10,17 @@
 			height : "350",
 			width : "500",
 			title:"",
-			question1: "",
-      flow_choices: '',
-			question2: "",
-			day_choices: "",
+			question: "",
+      choices: '',
+			submit: '',
 			top: "15%",
 			left: "20%",
 		},prop);
 
 		return this.click(function(e){
+			close_modal();
 			add_block_page();
 			add_popup_box();
-      display_choices();
 			add_styles();
 
 			$('.calculator_modal_box').fadeIn();
@@ -59,7 +58,7 @@
       /*Block page overlay*/
 			var pageHeight = $(document).height();
 			var pageWidth = $(window).width();
-			$('.calculator_block_page').css({
+			$('#calculator_block_page').css({
 				'position':'absolute',
 				'top':'0',
 				'left':'0',
@@ -81,25 +80,20 @@
 		}
 
 		 function add_block_page() {
-			var block_page = $('<div class="calculator_block_page"></div>');
+			var block_page = $('<div id="calculator_block_page"></div>');
 
 			$(block_page).appendTo('body');
 		}
 
 		 function add_popup_box() {
-			 var pop_up = $('<div class="calculator_modal_box"><a href="#" class="calculator_modal_close"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a><div class="calculator_inner_modal_box"><h2>' + options.title + '</h2><p>' + options.question1 + '</p><ul class="flow"></ul><p>' + options.question2 + '</p><ul class="days"></ul><p>Here should be the submit button</p></div></div>');
-			 $(pop_up).appendTo('.calculator_block_page');
+			 var pop_up = $('<div class="calculator_modal_box"><a href="#" class="calculator_modal_close"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a><div class="calculator_inner_modal_box"><h2>' + options.title + '</h2><p>' + options.question + '</p><ul class="flow">' + options.choices + '</ul>' + options.submit + '</div></div>');
+			 $(pop_up).appendTo('#calculator_block_page');
 			 $('.calculator_modal_close').click(function(){
           $(this).parent().fadeOut().remove();
-          $('.calculator_block_page').fadeOut().remove();
+          $('#calculator_block_page').fadeOut().remove();
 			 });
-
 		}
-    function display_choices() {
-			$(this).children("li").remove();
-      $(options.flow_choices).appendTo('.calculator_block_page ul.flow');
-			$(options.day_choices).appendTo('.calculator_block_page ul.days');
-    }
+
 
 		return this;
 	};
